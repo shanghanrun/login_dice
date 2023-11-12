@@ -37,74 +37,80 @@ class _LogInState extends State<LogIn> {
         actions: [IconButton(icon: const Icon(Icons.search), onPressed: () {})],
       ),
       body: Builder(
-        builder: (context) => SingleChildScrollView(
-          child: Column(
-            children: [
-              const Padding(padding: EdgeInsets.only(top: 50)),
-              Center(
-                child: Image.asset('image/chef.gif', width: 170, height: 190),
-              ),
-              Form(
-                child: Theme(
-                  data: ThemeData(
-                    primaryColor: Colors.teal, //밑줄 색상
-                    inputDecorationTheme: const InputDecorationTheme(
-                      labelStyle: TextStyle(
-                        color: Colors.teal,
-                        fontSize: 15,
+        builder: (context) => GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus(); //올라온 키보드 사라지게
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const Padding(padding: EdgeInsets.only(top: 50)),
+                Center(
+                  child: Image.asset('image/chef.gif', width: 170, height: 190),
+                ),
+                Form(
+                  child: Theme(
+                    data: ThemeData(
+                      primaryColor: Colors.teal, //밑줄 색상
+                      inputDecorationTheme: const InputDecorationTheme(
+                        labelStyle: TextStyle(
+                          color: Colors.teal,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.all(40),
+                      child: Column(
+                        children: [
+                          TextField(
+                            autofocus: true,
+                            controller: textController1,
+                            decoration: const InputDecoration(
+                              labelText: 'Enter "dice"',
+                            ),
+                            keyboardType: TextInputType.emailAddress, //@기호있음
+                          ),
+                          TextField(
+                            controller: textController2,
+                            decoration: const InputDecoration(
+                              labelText: 'Enter Password',
+                            ),
+                            keyboardType: TextInputType.text,
+                            obscureText: true, // 안보이게 함
+                          ),
+                          const SizedBox(height: 40),
+                          ButtonTheme(
+                            minWidth: 100,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                if (textController1.text == 'dice' &&
+                                    textController2.text == '1234') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => const Dice()));
+                                } else if (textController1.text == 'dice' &&
+                                    textController2.text != '1234') {
+                                  showSnackBar2(context);
+                                } else if (textController1.text != 'dice' &&
+                                    textController2.text == '1234') {
+                                  showSnackBar3(context);
+                                } else {
+                                  showSnackBar(context);
+                                }
+                              },
+                              child: const Icon(Icons.arrow_forward), // ->
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.all(40),
-                    child: Column(
-                      children: [
-                        TextField(
-                          controller: textController1,
-                          decoration: const InputDecoration(
-                            labelText: 'Enter "dice"',
-                          ),
-                          keyboardType: TextInputType.emailAddress, //@기호있음
-                        ),
-                        TextField(
-                          controller: textController2,
-                          decoration: const InputDecoration(
-                            labelText: 'Enter Password',
-                          ),
-                          keyboardType: TextInputType.text,
-                          obscureText: true, // 안보이게 함
-                        ),
-                        const SizedBox(height: 40),
-                        ButtonTheme(
-                          minWidth: 100,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (textController1.text == 'dice' &&
-                                  textController2.text == '1234') {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Dice()));
-                              } else if (textController1.text == 'dice' &&
-                                  textController2.text != '1234') {
-                                showSnackBar2(context);
-                              } else if (textController1.text != 'dice' &&
-                                  textController2.text == '1234') {
-                                showSnackBar3(context);
-                              } else {
-                                showSnackBar(context);
-                              }
-                            },
-                            child: const Icon(Icons.arrow_forward), // ->
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
