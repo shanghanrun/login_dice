@@ -51,22 +51,33 @@ class _LogInState extends State<LogIn> {
               ),
               child: Container(
                 padding: const EdgeInsets.all(40),
-                child: const Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter "dice"',
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Enter "dice"',
+                        ),
+                        keyboardType: TextInputType.emailAddress, //@기호있음
                       ),
-                      keyboardType: TextInputType.emailAddress, //@기호있음
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Enter Password',
+                      const TextField(
+                        decoration: InputDecoration(
+                          labelText: 'Enter Password',
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: true, // 안보이게 함
                       ),
-                      keyboardType: TextInputType.text,
-                      obscureText: true, // 안보이게 함
-                    ),
-                  ],
+                      const SizedBox(height: 40),
+                      ButtonTheme(
+                        minWidth: 100,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Icon(Icons.arrow_forward), // ->
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
